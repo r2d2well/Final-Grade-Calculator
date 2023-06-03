@@ -1,0 +1,31 @@
+Biology
+Discussion 2
+Homework 20
+Exams 30
+Quizzes 20
+Activities 20
+Participation 8
+
+Discrete_Math
+Attendence 5
+Quizzes 15
+Glossary_Journal 15
+Exam_1 15
+Exam_2 15
+Exam_3 15
+Final_Exam 20
+
+Chemistry
+Homework 20
+Exams 60
+Final_Exam 20
+
+Calculus_2
+MyLab_Homework 10
+MyLab_Quizzes 10
+Quizzes 10
+Exams 40
+Projects 16
+Participation 4
+Final_Exam 10
+
