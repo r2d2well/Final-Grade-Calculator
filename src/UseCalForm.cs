@@ -69,7 +69,7 @@ namespace Final_Grade_Calculator
                 {
                     inputs[counter - 1] = Double.Parse(textBox.Text);
                     textBox.Visible = false;
-                    label1.Text = "Your Final Grade is: " + CalculateGrade() + "%";
+                    label1.Text = "Your Final Grade is: " + CalculateGrade().ToString("F") + "%";
                     counter++;
                     //Shows the final Calculated Grade
                 }

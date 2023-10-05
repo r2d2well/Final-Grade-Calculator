@@ -43,10 +43,12 @@ namespace Final_Grade_Calculator
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            listView.Items.Add(textBox1.Text);
-            textBox1.Text = "";
-            SetAverageGradeLabel();
-            //Adds the text from textBox1 into the listview and set textBox1 text to empty
+            if (textBox1.Text != ""){
+                listView.Items.Add(textBox1.Text);
+                textBox1.Text = "";
+                SetAverageGradeLabel();
+                //Adds the text from textBox1 into the listview and set textBox1 text to empty
+            }
         }
 
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
@@ -79,7 +81,7 @@ namespace Final_Grade_Calculator
                 //For each item in listview add the double value of the item to the x varable
             }
             x /= listView.Items.Count;
-            AverageGradeLabel.Text = "Average Grade: " + x;
+            AverageGradeLabel.Text = "Average Grade: " + x.ToString("F");
             //Divide x by the number of items in the list and displays the output
         }
     }

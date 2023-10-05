@@ -75,9 +75,11 @@
             // 
             // EnterClassNameForm
             // 
+            AcceptButton = SubmitButton;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SlateGray;
+            CancelButton = CancelButton;
             ClientSize = new Size(578, 294);
             Controls.Add(SubmitButton);
             Controls.Add(CancelButton);

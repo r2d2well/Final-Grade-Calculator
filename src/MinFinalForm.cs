@@ -55,7 +55,7 @@ namespace Final_Grade_Calculator
             {
                 if ((CurrentGradeTextBox.Text != "") && (DesiredGradeTextBox.Text != "") && (FinalPercentTextBox.Text != ""))
                 {
-                    MinimumFinalLabel.Text = "Minimum Final: " + CalcuateMinFinal();
+                    MinimumFinalLabel.Text = "Minimum Final: " + CalcuateMinFinal().ToString("F");
                     //Displays the Minumal Final Grade if all considtions are meet 
                 }
             }

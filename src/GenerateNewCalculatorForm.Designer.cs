@@ -144,6 +144,7 @@
             // 
             // GenerateNewCalculatorForm
             // 
+            AcceptButton = AddButton;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightCoral;
