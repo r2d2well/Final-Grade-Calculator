@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenuForm));
             MinFinalButton = new Button();
             CreateButton = new Button();
             ViewCalsButton = new Button();
@@ -84,6 +85,7 @@
             Controls.Add(ViewCalsButton);
             Controls.Add(CreateButton);
             Controls.Add(MinFinalButton);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainMenuForm";
             Text = "Main Menu";
             ResumeLayout(false);

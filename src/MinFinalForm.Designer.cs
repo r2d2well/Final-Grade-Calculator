@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MinFinalForm));
             MinimumFinalLabel = new Label();
             CurrentGradeLabel = new Label();
             CurrentGradeTextBox = new TextBox();
@@ -130,6 +131,7 @@
             Controls.Add(CurrentGradeTextBox);
             Controls.Add(CurrentGradeLabel);
             Controls.Add(MinimumFinalLabel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MinFinalForm";
             Text = "MinFinal";
             ResumeLayout(false);

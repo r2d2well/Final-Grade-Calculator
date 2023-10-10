@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UseCalForm));
             label1 = new Label();
             textBox = new TextBox();
             button1 = new Button();
@@ -71,6 +72,7 @@
             Controls.Add(button1);
             Controls.Add(textBox);
             Controls.Add(label1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UseCalForm";
             Text = "Use Calculator";
             ResumeLayout(false);

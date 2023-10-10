@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CatGradeCalForm));
             listView = new ListView();
             label1 = new Label();
             textBox1 = new TextBox();
@@ -112,6 +113,7 @@
             Controls.Add(textBox1);
             Controls.Add(label1);
             Controls.Add(listView);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CatGradeCalForm";
             Text = "CatGradeCalForm";
             ResumeLayout(false);

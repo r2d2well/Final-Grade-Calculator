@@ -43,7 +43,8 @@ namespace Final_Grade_Calculator
 
         private void AddButton_Click(object sender, EventArgs e)
         {
-            if (textBox1.Text != ""){
+            if (textBox1.Text != "")
+            {
                 listView.Items.Add(textBox1.Text);
                 textBox1.Text = "";
                 SetAverageGradeLabel();

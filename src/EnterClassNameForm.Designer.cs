@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterClassNameForm));
             label = new Label();
             textBox = new TextBox();
             CancelButton = new Button();
@@ -79,12 +80,12 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SlateGray;
-            CancelButton = CancelButton;
             ClientSize = new Size(578, 294);
             Controls.Add(SubmitButton);
             Controls.Add(CancelButton);
             Controls.Add(textBox);
             Controls.Add(label);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "EnterClassNameForm";
             Text = "EnterClassNameForm";
             ResumeLayout(false);

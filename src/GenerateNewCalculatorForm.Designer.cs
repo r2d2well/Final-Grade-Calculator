@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GenerateNewCalculatorForm));
             listView1 = new ListView();
             CatagoryName = new ColumnHeader();
             Percent = new ColumnHeader();
@@ -158,6 +159,7 @@
             Controls.Add(RemoveButton);
             Controls.Add(CreateButton);
             Controls.Add(listView1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "GenerateNewCalculatorForm";
             Text = "GenerateNewCalculatorForm";
             ResumeLayout(false);
