@@ -12,18 +12,68 @@ namespace Final_Grade_Calculator
 {
     public partial class UseCalForm : Form
     {
-        int count;
-        int counter = 1;
+        int y = 50;
+        int x = 100;
         double[] inputs;
         ClassCalculator ClassCal;
+        List<Label> categorLabels;
+        List<TextBox> categorTextBoxs;
+        bool[] valideInput;
         public UseCalForm(ClassCalculator x)
         {
-            count = x.GetCount();
-            inputs = new double[count];
+            inputs = new double[x.GetCount()];
+            valideInput = new bool[x.GetCount()];
             ClassCal = x;
+            categorLabels = new List<Label>();
+            categorTextBoxs = new List<TextBox>();
             InitializeComponent();
-            label1.Text = "Enter " + ClassCal.GetCatagory(0) + " Grade (" + ClassCal.GetPercent(0) + "%): ";
             //Requires to be given a ClassCalculator object to be initilzed
+            for (int i = 0; i < x.GetCount(); i++)
+            {
+                addCategory(i);
+            }
+            FinalGradeLabel.Location = new Point(250, y);
+            this.Size = new Size(750, y + 100);
+            setGrades();
+        }
+
+        private void setGrades()
+        {
+            StreamReader reader = new StreamReader("ClassGrades.txt");
+            using (reader)
+            {
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] stringArray = line.Split(' ');
+                    if (stringArray[0].Replace('_', ' ') == ClassCal.GetName())
+                    {
+                        for(int i = 0; i < ClassCal.GetCount(); i++)
+                        {
+                            categorTextBoxs[i].Text = stringArray[i + 1];
+                        }
+                    }
+                }
+            }
+        }
+
+        private void addCategory(int count)
+        {
+            Label label = new Label();
+            string text = "Enter " + ClassCal.GetCatagory(count) + " Grade: ";
+            label.Text = text;
+            label.Location = new Point(x, y);
+            label.Size = new Size(250, 25);
+            categorLabels.Add(label);
+            Controls.Add(label);
+            TextBox textBox = new TextBox();
+            textBox.Location = new Point(x + 350, y);
+            textBox.Size = new Size(150, 25);
+            textBox.TextChanged += ValidateInput;
+            categorTextBoxs.Add(textBox);
+            Controls.Add(textBox);
+            y += 100;
         }
 
         private double CalculateGrade()
@@ -46,42 +96,82 @@ namespace Final_Grade_Calculator
             TextBox textBox = (TextBox)sender;
             try
             {
-                Double.Parse(textBox.Text);
+                double value = Double.Parse(textBox.Text);
+                if ((value < 0) || (value > 100))
+                {
+                    throw new Exception();
+                }
                 textBox.ForeColor = Color.Black;
+                int index = categorTextBoxs.IndexOf(textBox);
+                valideInput[index] = true;
+                inputs[index] = value;
+                for (int temp = 0; temp < valideInput.Count(); temp++)
+                {
+                    if (!valideInput[temp])
+                    {
+                        return;
+                    }
+                }
+                string text = "Final Grade: " + CalculateGrade();
+                FinalGradeLabel.Text = text;
             }
             catch (Exception ex)
             {
                 textBox.ForeColor = Color.Red;
+                int index = categorTextBoxs.IndexOf(textBox);
+                valideInput[index] = false;
             }
             //Validates the input and change the textBox ForeColor based off of the results
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void UseCalForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((textBox.ForeColor != Color.Red) && (textBox.Text != ""))
+            string tempFile = Path.GetTempFileName();
+            bool found = false;
+
+            using (StreamReader reader = new StreamReader("ClassGrades.txt"))
+            using (StreamWriter writer = new StreamWriter(tempFile))
+            //Creates a reader for the ClassData and a Writer for the temp file
             {
-                if (counter == (count + 1))
+                string line;
+                string temp;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    this.Hide();
-                    //Close the form if all final Grade has already been shown
+                    string[] stringArray = line.Split(' ');
+                    if (stringArray[0].Replace('_', ' ') == ClassCal.GetName())
+                    {
+                        temp = stringArray[0];
+                        for (int i = 0; i < ClassCal.GetCount(); i++)
+                        {
+                            temp += (" " + categorTextBoxs[i].Text);
+                        }
+                        writer.WriteLine(temp);
+                        found = true;
+                    }
+                    else
+                    {
+                        writer.WriteLine(line);
+                    }
                 }
-                else if (counter == count)
+                if (!found)
                 {
-                    inputs[counter - 1] = Double.Parse(textBox.Text);
-                    textBox.Visible = false;
-                    label1.Text = "Your Final Grade is: " + CalculateGrade().ToString("F") + "%";
-                    counter++;
-                    //Shows the final Calculated Grade
-                }
-                else
-                {
-                    inputs[counter - 1] = Double.Parse(textBox.Text);
-                    label1.Text = "Enter " + ClassCal.GetCatagory(counter) + " Grade (" + ClassCal.GetPercent(counter) + "%): ";
-                    textBox.Text = "";
-                    counter++;
-                    //Adds the input from the textBox and asks for the next input if there is any
+                    temp = ClassCal.GetName().Replace(' ', '_');
+                    for (int i = 0; i < ClassCal.GetCount(); i++)
+                    {
+                        if (valideInput[i])
+                        {
+                            temp += (" " + categorTextBoxs[i].Text);
+                        }
+                        else
+                        {
+                            temp += (" 0");
+                        }
+                    }
+                    writer.WriteLine(temp);
                 }
             }
+            File.Delete("ClassGrades.txt");
+            File.Move(tempFile, "ClassGrades.txt");
         }
     }
 }

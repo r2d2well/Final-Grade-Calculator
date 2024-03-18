@@ -1,0 +1,5 @@
+Artifical_Intelligence 88 100 83.3 70
+Calculus_2 80 75 85 80 90 100 70
+Chemistry 0 0 0
+Discrete_Math 0 0 0 0 0 0 0
+Biology 0 0 0 0 0 0

@@ -29,60 +29,36 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UseCalForm));
-            label1 = new Label();
-            textBox = new TextBox();
-            button1 = new Button();
+            FinalGradeLabel = new Label();
             SuspendLayout();
             // 
-            // label1
+            // FinalGradeLabel
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(106, 54);
-            label1.Name = "label1";
-            label1.Size = new Size(215, 38);
-            label1.TabIndex = 0;
-            label1.Text = "Enter <> Grade:";
-            // 
-            // textBox
-            // 
-            textBox.Location = new Point(170, 113);
-            textBox.Name = "textBox";
-            textBox.Size = new Size(151, 27);
-            textBox.TabIndex = 1;
-            textBox.TextChanged += ValidateInput;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(395, 144);
-            button1.Name = "button1";
-            button1.Size = new Size(127, 44);
-            button1.TabIndex = 2;
-            button1.Text = "Continue";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            FinalGradeLabel.AutoSize = true;
+            FinalGradeLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FinalGradeLabel.Location = new Point(309, 422);
+            FinalGradeLabel.Name = "FinalGradeLabel";
+            FinalGradeLabel.Size = new Size(156, 28);
+            FinalGradeLabel.TabIndex = 0;
+            FinalGradeLabel.Text = "Final Grade: N/A";
             // 
             // UseCalForm
             // 
-            AcceptButton = button1;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.SlateGray;
-            ClientSize = new Size(534, 200);
-            Controls.Add(button1);
-            Controls.Add(textBox);
-            Controls.Add(label1);
+            BackColor = Color.DarkTurquoise;
+            ClientSize = new Size(736, 590);
+            Controls.Add(FinalGradeLabel);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "UseCalForm";
             Text = "Use Calculator";
+            FormClosing += UseCalForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
-        private TextBox textBox;
-        private Button button1;
+        private Label FinalGradeLabel;
     }
 }
