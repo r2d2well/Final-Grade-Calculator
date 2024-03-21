@@ -32,6 +32,7 @@
             listView = new ListView();
             UseButton = new Button();
             RemoveButton = new Button();
+            EditButton = new Button();
             SuspendLayout();
             // 
             // listView
@@ -49,7 +50,7 @@
             // 
             // UseButton
             // 
-            UseButton.Location = new Point(466, 380);
+            UseButton.Location = new Point(622, 380);
             UseButton.Name = "UseButton";
             UseButton.Size = new Size(166, 58);
             UseButton.TabIndex = 1;
@@ -60,7 +61,7 @@
             // 
             // RemoveButton
             // 
-            RemoveButton.Location = new Point(181, 380);
+            RemoveButton.Location = new Point(12, 380);
             RemoveButton.Name = "RemoveButton";
             RemoveButton.Size = new Size(166, 58);
             RemoveButton.TabIndex = 2;
@@ -69,12 +70,24 @@
             RemoveButton.Visible = false;
             RemoveButton.Click += RemoveButton_Click;
             // 
+            // EditButton
+            // 
+            EditButton.Location = new Point(331, 380);
+            EditButton.Name = "EditButton";
+            EditButton.Size = new Size(166, 58);
+            EditButton.TabIndex = 3;
+            EditButton.Text = "Edit Calculator";
+            EditButton.UseVisualStyleBackColor = true;
+            EditButton.Visible = false;
+            EditButton.Click += EditButton_Click;
+            // 
             // ViewCalsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.ForestGreen;
             ClientSize = new Size(800, 450);
+            Controls.Add(EditButton);
             Controls.Add(RemoveButton);
             Controls.Add(UseButton);
             Controls.Add(listView);
@@ -89,5 +102,6 @@
         private ListView listView;
         private Button UseButton;
         private Button RemoveButton;
+        private Button EditButton;
     }
 }

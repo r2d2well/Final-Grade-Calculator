@@ -126,7 +126,7 @@
             // 
             // PercentTextBox
             // 
-            PercentTextBox.Location = new Point(474, 232);
+            PercentTextBox.Location = new Point(474, 235);
             PercentTextBox.Name = "PercentTextBox";
             PercentTextBox.Size = new Size(151, 27);
             PercentTextBox.TabIndex = 6;

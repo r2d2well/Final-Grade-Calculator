@@ -13,6 +13,9 @@ namespace Final_Grade_Calculator
     public partial class GenerateNewCalculatorForm : Form
     {
         System.Windows.Forms.Timer timer;
+        bool edit;
+        string calName;
+        List<string> gradeList;
         public GenerateNewCalculatorForm()
         {
             timer = new System.Windows.Forms.Timer();
@@ -20,6 +23,29 @@ namespace Final_Grade_Calculator
             timer.Tick += TimerDone;
             InitializeComponent();
             //Creates a timer that has a 1000 milisecond interval
+            edit = false;
+            gradeList = null;
+        }
+
+        public GenerateNewCalculatorForm(ClassCalculator calculator)
+        {
+            timer = new System.Windows.Forms.Timer();
+            timer.Interval = 1000;
+            timer.Tick += TimerDone;
+            InitializeComponent();
+            //Creates a timer that has a 1000 milisecond interval
+            calName = calculator.GetName();
+            for (int i = 0; i < calculator.GetCount(); i++)
+            {
+                ListViewItem listViewItem = new ListViewItem(calculator.GetCatagory(i));
+                listViewItem.SubItems.Add(calculator.GetPercent(i).ToString());
+                listView1.Items.Add(listViewItem);
+            }
+            TotalLabel.Text = "Total Percent: " + GetTotalPercent();
+            this.Text = "Edit " + calName + " Calculator";
+            edit = true;
+            gradeList = Program.GetGrades(calName).ToList();
+            CreateButton.Text = "Submit Changes";
         }
 
         private void CreateButton_Click(object sender, EventArgs e)
@@ -35,8 +61,18 @@ namespace Final_Grade_Calculator
                     percent[x] = double.Parse(listView1.Items[x].SubItems[1].Text);
                     //Creates 2 arrays based off current listview Items
                 }
-                EnterClassNameForm enterClassNameForm = new EnterClassNameForm(name, percent, this);
-                enterClassNameForm.ShowDialog();
+                if (!edit)
+                {
+                    EnterClassNameForm enterClassNameForm = new EnterClassNameForm(name, percent, this);
+                    enterClassNameForm.ShowDialog();
+                }
+                else
+                {
+                    ClassCalculator x = new ClassCalculator(calName, name, percent);
+                    Program.AddToList(x);
+                    Program.WriteGradeData(x, gradeList.ToArray());
+                    this.Close();
+                }
                 //Creates a new EnterClassNameForm with array and this current Form
             }
             else
@@ -48,6 +84,10 @@ namespace Final_Grade_Calculator
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
+            if (gradeList != null)
+            {
+                gradeList.RemoveAt(listView1.SelectedIndices[0]);
+            }
             listView1.Items.RemoveAt(listView1.SelectedIndices[0]);
             TotalLabel.Text = "Total Percent: " + GetTotalPercent();
             //Removes currently selected Item and updates the Total Percent Label
@@ -102,6 +142,10 @@ namespace Final_Grade_Calculator
                 PercentTextBox.Text = string.Empty;
                 TotalLabel.Text = "Total Percent: " + GetTotalPercent();
                 //Makes the 2 textBox empty and update the Total Percent
+                if (gradeList != null)
+                {
+                    gradeList.Add("/");
+                }
             }
             else
             {

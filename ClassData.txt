@@ -29,3 +29,9 @@ Projects 16
 Participation 4
 Final_Exam 10
 
+Artifical_Intelligence
+Attendence 5
+Assignments 30
+Presentation 5
+Test_1 10
+

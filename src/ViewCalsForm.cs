@@ -30,12 +30,14 @@ namespace Final_Grade_Calculator
             {
                 UseButton.Visible = true;
                 RemoveButton.Visible = true;
+                EditButton.Visible = true;
                 //If a ListView Item is selected make UseButton and RemoveButton Visable
             }
             else
             {
                 UseButton.Visible = false;
                 RemoveButton.Visible = false;
+                EditButton.Visible = false;
                 //If no ListView Item is selected make UseButton and RemoveButton Invisable
             }
         }
@@ -54,6 +56,14 @@ namespace Final_Grade_Calculator
             listView.Items.RemoveAt(listView.SelectedIndices[0]);
             Program.RemoveFromList(x);
             //Removes the Calculator from the Listview and the calls the RemoveFromList method from the Program class
+        }
+
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            int x = listView.SelectedIndices[0];
+            GenerateNewCalculatorForm generateNewCalculatorForm = new GenerateNewCalculatorForm(list[x]);
+            generateNewCalculatorForm.ShowDialog();
+            //Creates a new UseCalForm with the currently selected ListViewItem
         }
     }
 }

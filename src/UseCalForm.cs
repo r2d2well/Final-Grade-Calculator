@@ -39,20 +39,18 @@ namespace Final_Grade_Calculator
 
         private void setGrades()
         {
-            StreamReader reader = new StreamReader("ClassGrades.txt");
-            using (reader)
+            string[] stringArray = Program.GetGrades(ClassCal.GetName());
+            if (stringArray != null)
             {
-                string line;
-
-                while ((line = reader.ReadLine()) != null)
+                for (int i = 0; i < stringArray.Length; i++)
                 {
-                    string[] stringArray = line.Split(' ');
-                    if (stringArray[0].Replace('_', ' ') == ClassCal.GetName())
+                    if (stringArray[i] == "/")
                     {
-                        for(int i = 0; i < ClassCal.GetCount(); i++)
-                        {
-                            categorTextBoxs[i].Text = stringArray[i + 1];
-                        }
+                        categorTextBoxs[i].Text = "";
+                    }
+                    else
+                    {
+                        categorTextBoxs[i].Text = stringArray[i];
                     }
                 }
             }
@@ -112,7 +110,7 @@ namespace Final_Grade_Calculator
                         return;
                     }
                 }
-                string text = "Final Grade: " + CalculateGrade();
+                string text = "Final Grade: " + Math.Round(CalculateGrade(), 2);
                 FinalGradeLabel.Text = text;
             }
             catch (Exception ex)
@@ -120,58 +118,31 @@ namespace Final_Grade_Calculator
                 textBox.ForeColor = Color.Red;
                 int index = categorTextBoxs.IndexOf(textBox);
                 valideInput[index] = false;
+                FinalGradeLabel.Text = "Final Grade: N/A";
             }
             //Validates the input and change the textBox ForeColor based off of the results
         }
 
         private void UseCalForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string tempFile = Path.GetTempFileName();
-            bool found = false;
-
-            using (StreamReader reader = new StreamReader("ClassGrades.txt"))
-            using (StreamWriter writer = new StreamWriter(tempFile))
-            //Creates a reader for the ClassData and a Writer for the temp file
+            string [] array = new string[categorTextBoxs.Count];
+            for (int i = 0; i < array.Length; i++)
             {
-                string line;
-                string temp;
-                while ((line = reader.ReadLine()) != null)
+                try
                 {
-                    string[] stringArray = line.Split(' ');
-                    if (stringArray[0].Replace('_', ' ') == ClassCal.GetName())
+                    double value = Double.Parse(categorTextBoxs[i].Text);
+                    if ((value < 0)||(value > 120))
                     {
-                        temp = stringArray[0];
-                        for (int i = 0; i < ClassCal.GetCount(); i++)
-                        {
-                            temp += (" " + categorTextBoxs[i].Text);
-                        }
-                        writer.WriteLine(temp);
-                        found = true;
+                        throw new Exception();
                     }
-                    else
-                    {
-                        writer.WriteLine(line);
-                    }
+                    array[i] = categorTextBoxs[i].Text;
                 }
-                if (!found)
+                catch(Exception ex)
                 {
-                    temp = ClassCal.GetName().Replace(' ', '_');
-                    for (int i = 0; i < ClassCal.GetCount(); i++)
-                    {
-                        if (valideInput[i])
-                        {
-                            temp += (" " + categorTextBoxs[i].Text);
-                        }
-                        else
-                        {
-                            temp += (" 0");
-                        }
-                    }
-                    writer.WriteLine(temp);
+                    array[i] = "/";
                 }
             }
-            File.Delete("ClassGrades.txt");
-            File.Move(tempFile, "ClassGrades.txt");
+            Program.WriteGradeData(ClassCal, array);
         }
     }
 }
